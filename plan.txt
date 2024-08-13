@@ -1,0 +1,46 @@
+BANK SAYTI 
+
+Kirish / Ro`yhatdan o`tish
+
+1-Kirish > Asosiy oynaga otadi 
+    telefon raqam
+    parol 
+
+2-Ro`yhatdan o`tish => Asosiy malumotlarni kiritish bo`limiga otvoradi 
+    telefon raqam
+    parol
+
+3-Asosiy malumotlar oynasi 
+    F.I.SH
+    tugulgan yili/oy/kun
+    Manzil 
+    pasport raqami 
+    JSHSHIR
+    rasmi 3x4
+    telefon raqam
+    plastik karta (mavjud bo`lsa)
+
+    submit tugmasi bosadi va muvaffaqiyatli ro`yhatdan o`tadi va => Asosiy oynaga kiradi u ham 
+
+4-Asosiy oyna
+    1-Asosiy 
+        Kartadagi barcha pul 
+        Mavjud kartalari kartalari 
+        va boshqa qoshimcha
+    2-Profil 
+        Profil egasining malumotlari 
+            ism familiya
+            nomer 
+            pasport idsi 
+    3-O`tkazmalar 
+        O`tkazmalar bo`limiga input boladi u yerga karta kiritilib pul jo`natiladi 
+    4-To`lov 
+        to`lov bu telefon nomerlarga pul tashlash qismi bo`ladi 
+    5-Tarix
+        Tarix o`tkazmalarning barchasi yozib boriladigan qisim 
+
+5-Log out Asosiy oynadan chiqib ketish yani kirish bo`limiga qaytib qoladigan qisim  
+
+
+
+

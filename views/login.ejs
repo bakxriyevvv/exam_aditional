@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirish</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <img src="/uploads/logo.png" alt="Bank Image">
+            <h1>Bizning bankimizga qaytganingizdan hursandmiz</h1>
+            <p>Pullaringiz xavfsiz joyda deb his qilavering</p>
+        </div>
+        <div class="right-panel">
+            <h1>Kirish</h1>
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <div class="alternative">
+                <p>Yangi akkaunt yaratmoqchimisiz? <a href="/">Ro'yxatdan o'tish</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
