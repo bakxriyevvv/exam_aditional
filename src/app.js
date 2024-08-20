@@ -112,7 +112,52 @@ app.get('/success', (req, res) => {
             return res.redirect('/');
         }
 
-        res.render('success', { user: results.rows[0] });
+        res.render('success', { user: results.rows[0], messages: {}, transactions: [] });
+    });
+});
+
+app.post('/transfer', (req, res) => {
+    const { id } = req.query;
+    const { transferTo, amount } = req.body;
+
+    if (!transferTo || transferTo.length !== 16) {
+        
+        return res.redirect(`/success?id=${id}&error=Invalid%20card%20number`);
+    }
+    if (amount <= 0) {
+        return res.redirect(`/success?id=${id}&error=Invalid%20amount`);
+    }
+
+// Retrieve user information
+    db.query('SELECT * FROM users WHERE id = $1', [id], (err, results) => {
+        if (err) throw err;
+
+        const user = results.rows[0];
+        if (!user) {
+            return res.redirect(`/success?id=${id}&error=User%20not%20found`);
+        }
+
+        // Check if the user has enough balance
+        if (user.balance < amount) {
+            return res.redirect(`/success?id=${id}&error=Insufficient%20balance`);
+        }
+
+        // Deduct the amount from user's balance
+        const newBalance = user.balance - amount;
+
+        // Update the user's balance in the database
+        db.query('UPDATE users SET balance = $1 WHERE id = $2', [newBalance, id], (err, updateResult) => {
+            if (err) throw err;
+
+            // Record the transaction (this part is optional, depends on your design)
+            db.query('INSERT INTO transactions (user_id, type, amount, date) VALUES ($1, $2, $3, NOW())', 
+                [id, 'transfer', amount], (err, transactionResult) => {
+                if (err) throw err;
+
+                // Redirect back to the success page
+                res.redirect(`/success?id=${id}&success=Transfer%20successful`);
+            });
+        });
     });
 });
 

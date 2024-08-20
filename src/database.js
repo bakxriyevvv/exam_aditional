@@ -11,7 +11,7 @@ pool.connect((err) => {
     if (err) {
         console.error('PostgreSQL ga ulanishda xatolik: ', err);
     } else {
-        console.log('PostgreSQL ga ulanish muvaffaqiyatli.');
+        console.log('MONGOGA ULANISH ga ulanish muvaffaqiyatli amalga oshirildi.');
     }
 });
 

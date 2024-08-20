@@ -30,15 +30,13 @@
 
         <!-- Tranzaksiya xabarlari -->
         <div class="messages">
-            <% if (messages.error) { %>
+            <% if (messages && messages.error) { %>
                 <p class="error-message"><%= messages.error %></p>
             <% } %>
-            <% if (messages.success) { %>
+            <% if (messages && messages.success) { %>
                 <p class="success-message"><%= messages.success %></p>
             <% } %>
         </div>
-
-        <!-- Tranzaksiya tarixini ko'rsatish -->
         <div class="transactions">
             <h3>Tranzaktsiyalar</h3>
             <ul class="transaction-list">
