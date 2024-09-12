@@ -4,56 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muvaffaqiyat</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/suc.css">
+    <style>
+        /* Custom Modal Width */
+        .modal-dialog {
+            max-width: 700px; /* Adjust the width as needed */
+        }
+        /* Circular Profile Image in Modal */
+        .profile-image-modal {
+            width: 150px; /* Adjust size as needed */
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar">
         <div class="navbar-left">
             <div class="user-info">
                 <!-- Foydalanuvchi fotosurati va nomi -->
-                <img src="/uploads/userimage/<%= user.photo %>" alt="Profil rasmi" class="profile-image">
+                <img src="<%= user.photo ? `/uploads/userimage/${user.photo}` : '/uploads/userimage/default.png' %>" alt="Profil rasmi" class="profile-image">
                 <span class="username">Xush kelibsiz, <%= user.username %>!</span>
             </div>
         </div>
         <div class="navbar-right">
             <ul class="nav-links">
-                <li><a href="https://kun.uz">Biz haqimizda</a></li>
+                <!-- Shaxsiy Profil tugmasi modalni ochadi -->
+                <li><a href="#" data-bs-toggle="modal" data-bs-target="#profileModal">Shaxsiy profil</a></li>
                 <li><a href="/login" class="logout">Chiqish</a></li>
             </ul>
         </div>
     </div>
+
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileModalLabel">Shaxsiy Profil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Foydalanuvchining ismi: <%= user.username %></p>
+                    <p>Foydalanuvchining balansi: $<%= user.balance.toFixed(2) %></p>
+                    <img src="<%= user.photo ? `/uploads/userimage/${user.photo}` : '/uploads/userimage/default.png' %>" alt="Profil rasmi" class="profile-image-modal">
+                    
+                    <!-- Parolni o'zgartirish formasi -->
+                    <form id="updatePasswordForm">
+                        <div class="form-group">
+                            <label for="currentPassword">Joriy parol</label>
+                            <input type="password" name="currentPassword" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">Yangi parol</label>
+                            <input type="password" name="newPassword" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Yangi parolni tasdiqlang</label>
+                            <input type="password" name="confirmPassword" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Parolni yangilash</button>
+                    </form>
+                    
+                    <!-- Yozuv muvaffaqiyatli almashtirilganligini bildiradi -->
+                    <p id="passwordChangeMessage" class="text-success mt-3" style="display:none;">Parol muvaffaqiyatli almashtirildi</p>
+                    <p id="errorMessage" class="text-danger mt-3" style="display:none;"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
     <div class="content">
         <div class="balance-section">
             <h2>Joriy balans</h2>
-            <p class="balance-amount">$<%= user.balance %></p>
+            <p class="balance-amount">$<%= user.balance.toFixed(2) %></p>
         </div>
-
-        <!-- Tranzaksiya xabarlari -->
-        <div class="messages">
-            <% if (messages && messages.error) { %>
-                <p class="error-message"><%= messages.error %></p>
-            <% } %>
-            <% if (messages && messages.success) { %>
-                <p class="success-message"><%= messages.success %></p>
-            <% } %>
-        </div>
-        <div class="transactions">
-            <h3>Tranzaktsiyalar</h3>
-            <ul class="transaction-list">
-                <!-- Tranzaksiya ro'yxatini dinamik tarzda chiqarish -->
-                <% transactions.forEach(transaction => { %>
-                    <li class="transaction-item">
-                        <span class="type <%= transaction.type %>"><%= transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1) %></span> - <%= new Date(transaction.date).toLocaleDateString() %> - $<%= transaction.amount.toFixed(2) %>
-                    </li>
-                <% }); %>
-            </ul>
-        </div>
-
         <!-- Qo'shimcha amallar -->
         <div class="actions">
             <div class="action-card transfer">
                 <h3>Pul o'tkazish</h3>
-                <form action="/transfer?id=<%= user.id %>" method="POST">
+                <form action="/transfer" method="POST">
                     <input type="text" name="transferTo" placeholder="Karta raqami" required>
                     <input type="number" name="amount" placeholder="Miqdor" required>
                     <button type="submit">O'tkazish</button>
@@ -76,5 +114,10 @@
             </div>
         </div>
     </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../utils/reset-password.js"></script>
 </body>
 </html>

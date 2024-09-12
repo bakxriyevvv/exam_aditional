@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Ma'lumotlari</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #4B61D1;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.success-message {
+    color: #2a2b5b;
+    background-color: #e8f4f8;
+    border: 1px solid #4B61D1;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 16px;
+    color: #121545;
+}
+
+input[type="file"] {
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.submit-button {
+    background-color: #FFAE00;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #e89c00;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    color: #4B61D1;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+</style>
+<body>
+    <div class="container">
+        <h1>Profil Ma'lumotlari</h1>
+
+        <% if (messages && messages.success) { %>
+            <p class="success-message"><%= messages.success %></p>
+        <% } %>
+
+        <form action="/photo/<%= user.id %>" method="POST" enctype="multipart/form-data" class="upload-form">
+            <label for="photo">Profil rasmi:</label>
+            <input type="file" name="photo" id="photo" required>
+            <button type="submit" class="submit-button">Yuklash</button>
+        </form>
+
+        <a href="/success/<%= user.id %>" class="back-link">Bosh sahifaga qaytish</a>
+    </div>
+</body>
+</html>
